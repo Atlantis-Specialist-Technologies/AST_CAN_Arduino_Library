@@ -38,7 +38,7 @@
 //!
 //! This function clears the Mailbox content.
 //! It reset CANSTMOB, CANCDMOB, CANIDTx & CANIDMx and clears data FIFO of
-//! MOb[0] upto MOb[LAST_MOB_NB].
+//! MOb[0] up to MOb[LAST_MOB_NB].
 //!
 //! @warning: This version doesn't clears the data FIFO
 //!
@@ -77,7 +77,7 @@ U8  mob_number;
 //! @param  none.
 //!
 //! @return Handle of MOb.
-//!          - MOb[0] upto MOb[LAST_MOB_NB]
+//!          - MOb[0] up to MOb[LAST_MOB_NB]
 //!          - 0xFF if no MOb
 //------------------------------------------------------------------------------
 U8 can_get_mob_free(void)

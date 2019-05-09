@@ -75,7 +75,7 @@ typedef enum {
 
 // ----------
 // @brief This union defines a CAN identifier and allows to access it in mode
-// standart, extended or throught a table.
+// standard, extended or throught a table.
 typedef union{
   U32 ext;
   U16 std;

@@ -1,6 +1,6 @@
 /*
  * CAN port receiver example
- * Receives data on the CAN buss and prints to the serial port
+ * Receives data on the CAN bus and prints to the serial port
  */
 
 #include <ASTCanLib.h>              

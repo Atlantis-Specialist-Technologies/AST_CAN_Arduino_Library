@@ -328,7 +328,7 @@ typedef enum {
 //  @fn can_clear_all_mob
 //!
 //! This function clears the Mailbox content.
-//! It uses Can_clear_mob() macro and clears data FIFO o MOb[0] upto
+//! It uses Can_clear_mob() macro and clears data FIFO o MOb[0] up to
 //! MOb[LAST_MOB_NB].
 //!
 //! @warning none.
@@ -350,7 +350,7 @@ extern  void can_clear_all_mob(void);
 //! @param none.
 //!
 //! @return Handle of MOb.
-//!          - MOb[0] upto MOb[LAST_MOB_NB]
+//!          - MOb[0] up to MOb[LAST_MOB_NB]
 //!          - 0xFF if no MOb
 //!
 extern  U8 can_get_mob_free(void);

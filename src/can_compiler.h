@@ -65,7 +65,7 @@ typedef union
 
 //_____ M A C R O S ____________________________________________________________
 
-//! Some usefull macros...
+//! Some useful macros...
     // Max(a, b): Take the max between a and b
     // Min(a, b): Take the min between a and b
     // Align_up(val, n):   Around (up)   the number (val) on the (n) boundary

@@ -10,9 +10,6 @@
 #include "ASTCanLib.h"
 
 void canInit(long baud){
-  // Clock prescaler
-  CLKPR  = ( 1 << CLKPCE );          // Set Clock Prescaler change enable
-  CLKPR  = 0x00;
   // Setup ports
   DDRB  |= (1<<DDB1)|(1<<DDB4);
   DDRD  |= (1<<DDD5);                // TxCan

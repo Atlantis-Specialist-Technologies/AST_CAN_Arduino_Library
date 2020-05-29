@@ -63,35 +63,35 @@
 U8 can_init(U8 mode,long baud)
 {
   switch(baud){
-    case 100000:
-      CANBT1 = 0x12;
+    case 1000000: // TQ=0.125
+      CANBT1 = 0x02;
+      CANBT2 = 0x04;
+      CANBT3 = 0x13;
+      break;
+    case 500000: // TQ=0.250
+      CANBT1 = 0x06;
+      CANBT2 = 0x04;
+      CANBT3 = 0x13;
+      break;
+    case 250000: // TQ=0.250
+      CANBT1 = 0x06;
       CANBT2 = 0x0C;
       CANBT3 = 0x37;
       break;
-    case 125000:
-      CANBT1 = 0x0E;
-      CANBT2 = 0x0C;
-      CANBT3 = 0x37;
-      break;
-    case 200000:
+    case 200000: // TQ=0.3125
       CANBT1 = 0x08;
       CANBT2 = 0x0C;
       CANBT3 = 0x37;
       break;
-    case 250000:
-      CANBT1 = 0x06;
+    case 125000: // TQ=0.500
+      CANBT1 = 0x0E;
       CANBT2 = 0x0C;
       CANBT3 = 0x37;
       break;
-    case 500000:
-      CANBT1 = 0x06;
-      CANBT2 = 0x04;
-      CANBT3 = 0x13;
-      break;
-    case 1000000:
-      CANBT1 = 0x02;
-      CANBT2 = 0x04;
-      CANBT3 = 0x13;
+    case 100000: // TQ=0.625
+      CANBT1 = 0x12;
+      CANBT2 = 0x0C;
+      CANBT3 = 0x37;
       break;
     default:
       return(0);

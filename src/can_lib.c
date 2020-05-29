@@ -63,6 +63,7 @@
 U8 can_init(U8 mode,long baud)
 {
   switch(baud){
+#if F_CPU == 16000000UL
     case 1000000: // TQ=0.125
       CANBT1 = 0x02;
       CANBT2 = 0x04;
@@ -93,6 +94,121 @@ U8 can_init(U8 mode,long baud)
       CANBT2 = 0x0C;
       CANBT3 = 0x37;
       break;
+#elif F_CPU == 12000000UL
+    case 1000000: // TQ=0.083333
+      CANBT1 = 0x00;
+      CANBT2 = 0x08;
+      CANBT3 = 0x24;
+      break;
+    case 500000: // TQ=0.250
+      CANBT1 = 0x04;
+      CANBT2 = 0x04;
+      CANBT3 = 0x13;
+      break;
+    case 250000: // TQ=0.250
+      CANBT1 = 0x04;
+      CANBT2 = 0x0C;
+      CANBT3 = 0x37;
+      break;
+    case 200000: // TQ=0.250
+      CANBT1 = 0x04;
+      CANBT2 = 0x0E;
+      CANBT3 = 0x4B;
+      break;
+    case 125000: // TQ=0.500
+      CANBT1 = 0x0A; 
+      CANBT2 = 0x0C;
+      CANBT3 = 0x37;
+      break;
+    case 100000: // TQ=0.500
+      CANBT1 = 0x0A;
+      CANBT2 = 0x0E;
+      CANBT3 = 0x4B;
+      break;
+#elif F_CPU == 8000000UL
+    case 1000000: // TQ=0.125
+      CANBT1 = 0x00;
+      CANBT2 = 0x04;
+      CANBT3 = 0x12;
+      break;
+    case 500000: // TQ=0.250
+      CANBT1 = 0x02;
+      CANBT2 = 0x04;
+      CANBT3 = 0x13;
+      break;
+    case 250000: // TQ=0.250
+      CANBT1 = 0x02;
+      CANBT2 = 0x0C;
+      CANBT3 = 0x37;
+      break;
+    case 200000: // TQ=0.250
+      CANBT1 = 0x02;
+      CANBT2 = 0x0E;
+      CANBT3 = 0x4B;
+      break;
+    case 125000: // TQ=0.500
+      CANBT1 = 0x06;
+      CANBT2 = 0x0C;
+      CANBT3 = 0x37;
+      break;
+    case 100000: // TQ=0.625
+      CANBT1 = 0x08;
+      CANBT2 = 0x0C;
+      CANBT3 = 0x37;
+      break;
+#elif F_CPU == 6000000UL
+    case 500000: // TQ=0.166666
+      CANBT1 = 0x00;
+      CANBT2 = 0x08;
+      CANBT3 = 0x24;
+      break;
+    case 250000: // TQ=0.333333
+      CANBT1 = 0x02;
+      CANBT2 = 0x08;
+      CANBT3 = 0x25;
+      break;
+    case 200000: // TQ=0.333333
+      CANBT1 = 0x02;
+      CANBT2 = 0x0C;
+      CANBT3 = 0x35;
+      break;
+    case 125000: // TQ=0.500
+      CANBT1 = 0x04;
+      CANBT2 = 0x0C;
+      CANBT3 = 0x37;
+      break;
+    case 100000: // TQ=0.500
+      CANBT1 = 0x04;
+      CANBT2 = 0x0E;
+      CANBT3 = 0x4B;
+      break;
+#elif F_CPU == 4000000UL
+    case 500000: // TQ=0.250
+      CANBT1 = 0x00;
+      CANBT2 = 0x04;
+      CANBT3 = 0x12;
+      break;
+    case 250000: // TQ=0.250
+      CANBT1 = 0x00;
+      CANBT2 = 0x0C;
+      CANBT3 = 0x36;
+      break;
+    case 200000: // TQ=0.250
+      CANBT1 = 0x00;
+      CANBT2 = 0x0E;
+      CANBT3 = 0x4A;
+      break;
+    case 125000: // TQ=0.500
+      CANBT1 = 0x02;
+      CANBT2 = 0x0C;
+      CANBT3 = 0x37;
+      break;
+    case 100000: // TQ=0.500
+      CANBT1 = 0x02;
+      CANBT2 = 0x0E;
+      CANBT3 = 0x4B;
+      break;
+#endif
     default:
       return(0);
   }

@@ -83,12 +83,15 @@ U8  mob_number;
 U8 can_get_mob_free(void)
 {
     U8 mob_number, page_saved;
+    U16 canen;
 
     page_saved = CANPAGE;
+    canen = CANEN1 & 0x7f;
+    canen = canen << 8 | CANEN2;
     for (mob_number = 0; mob_number < NB_MOB; mob_number++)
     {
         Can_set_mob(mob_number);
-        if ((CANCDMOB & 0xC0) == 0x00) //! Disable configuration
+        if (((CANCDMOB & 0xC0) == 0x00) && ((canen & (1 << mob_number)) == 0x00))
         {
             CANPAGE = page_saved;
             return (mob_number);
@@ -127,20 +130,30 @@ U8 can_get_mob_free(void)
 U8 can_get_mob_status(void)
 {
     U8 mob_status, canstmob_copy;
+    U16 canen;
 
     // Test if MOb ENABLE or DISABLE
-    if ((CANCDMOB & 0xC0) == 0x00) {return(MOB_DISABLE);}
-
+    canen = CANEN1 & 0x7f;
+    canen = canen << 8 | CANEN2;
     canstmob_copy = CANSTMOB; // Copy for test integrity
-
-    // If MOb is ENABLE, test if MOb is COMPLETED
-    // - MOb Status = 0x20 then MOB_RX_COMPLETED
-    // - MOb Status = 0x40 then MOB_TX_COMPLETED
-    // - MOb Status = 0xA0 then MOB_RX_COMPLETED_DLCW
-    mob_status = canstmob_copy & ((1<<DLCW)|(1<<TXOK)|(1<<RXOK));
-    if ( (mob_status==MOB_RX_COMPLETED) ||   \
-         (mob_status==MOB_TX_COMPLETED) ||   \
-         (mob_status==MOB_RX_COMPLETED_DLCW) ) { return(mob_status); }
+    if ((canen & (1 << (CANPAGE >> 4))) == 0)
+    {
+        // If MOb is ENABLE, test if MOb is COMPLETED
+        // - MOb Status = 0x20 then MOB_RX_COMPLETED
+        // - MOb Status = 0x40 then MOB_TX_COMPLETED
+        // - MOb Status = 0xA0 then MOB_RX_COMPLETED_DLCW
+        mob_status = canstmob_copy & ((1<<DLCW)|(1<<TXOK)|(1<<RXOK));
+        if ( (mob_status==MOB_RX_COMPLETED) ||   \
+             (mob_status==MOB_TX_COMPLETED) ||   \
+             (mob_status==MOB_RX_COMPLETED_DLCW) )
+        {
+            return(mob_status);
+        }
+        else 
+        {
+            return(MOB_DISABLE);
+        }
+    }
 
     // If MOb is ENABLE & NOT_COMPLETED, test if MOb is in ERROR
     // - MOb Status bit_0 = MOB_ACK_ERROR
